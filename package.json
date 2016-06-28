@@ -13,6 +13,13 @@
   },
   "author": "rockywu <wjl19890427@hotmail.com>",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rockywu/use-iconfonts.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rockywu/use-iconfonts/issues"
+  },
   "dependencies": {
     "es6-promise": "^3.2.1",
     "gulp": "^3.9.1",
