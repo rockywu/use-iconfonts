@@ -8,7 +8,9 @@ const _ = require("underscore");
 const mkdirp = require("mkdirp");
 const path = require("path");
 const utils = require("./utils");
+const promise = require("es6-promise").Promise;
 const formats = ['svg', 'ttf', 'eot', 'woff', 'woff2'];
+const fs = require("fs");
 /**
  * 是否为空
  * @param val
@@ -101,9 +103,10 @@ class iconfonts {
                 tmp.file = path.normalize(font.file);
                 tmp.name = font.name || font.unicode.join("-");
                 tmp.classname = font.classname || font.unicode.join("-");
+                tmp.code = font.unicode;
                 tmp.unicode = font.unicode.map(code => {
                     return eval("'\\u" + code + "'");
-                })
+                });
                 return tmp;
             });
             fonts = fonts.filter(font => font !== false);
@@ -175,9 +178,64 @@ class iconfonts {
             /**
              * 字体生成完成
              */
+            _this.runDemo(outPath, options);
             cb(glyphs, options);
         })
         .pipe(gulp.dest(outPath))
+    }
+
+    /**
+     * 生成字体demo
+     * @param outPath
+     * @return void
+     */
+    runDemo(outPath, options) {
+        try {
+            mkdirp.sync(outPath);
+        } catch(e) {
+            throw new Error("输出文件路径错误");
+        }
+        let _this = this;
+        let p = path.normalize(__dirname + "/../iconsTmp/");
+        let outParse = path.parse(path.normalize(outPath));
+        let iconsTemplate = ["demo.css", "demo.html", "iconfont.css"];
+        let ps = [];
+        _.forEach(iconsTemplate, template => {
+            ps.push(_this.runTemplate(p + template, {
+                fonts : _this.fonts,
+                fontName : options.fontName,
+                timestamp : options.timestamp
+            }));
+        });
+        return promise.all(ps).then(function(templates) {
+            _.forEach(templates, (content, key) => {
+                console.log(content);
+                fs.writeFileSync(outParse.dir + "/" + outParse.base + "/" + iconsTemplate[key], content);
+            })
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
+
+    /**
+     * 运行模板替换
+     * @param filePath
+     * @param data
+     */
+    runTemplate(filePath, data) {
+        data = data || {};
+        return new promise((resolve, reject) => {
+            fs.readFile(filePath, "utf8", (err, content) => {
+                if(err)  {
+                    resolve(null);
+                    return;
+                } else {
+                    resolve(_.template(content.toString())(data));
+                }
+            });
+        }).catch(function(err) {
+            console.log(err)
+        })
     }
 }
 exports = module.exports = iconfonts;

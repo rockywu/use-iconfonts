@@ -2,12 +2,12 @@
 /**
  * Created by rocky on 16/6/28.
  */
-let jsZip = require("jszip");
-let fs = require("fs");
-let mkdirp = require("mkdirp");
-let path = require("path");
-let _ = require("underscore");
-let promise = require("es6-promise").Promise;
+const jsZip = require("jszip");
+const fs = require("fs");
+const mkdirp = require("mkdirp");
+const path = require("path");
+const _ = require("underscore");
+const promise = require("es6-promise").Promise;
 
 class zip {
     constructor() {

@@ -11,24 +11,25 @@
     <div class="main">
       <h1>IconFont 图标</h1>
       <ul class="icon_lists clear">
-        <% _.each(icons, function(icon) { %>
+        <% _.each(fonts, function(font) { %>
         <li>
-          <i class="icon iconfont">&#x<%= icon.name %>;</i>
-          <div class="name"><%= icon.name %></div>
-          <div class="code">&amp;#x<%= icon.name %>;</div>
-          <div class="fontclass">.icon-<%= icon.name %></div>
+          <i class="icon iconfont">&#x<%= font.code.join("&#x") %>;</i>
+          <div class="name"><%= font.name %></div>
+          <div class="code">&amp;#x<%= font.code.join("") %>;</div>
+          <div class="fontclass">.icon-<%= font.classname %></div>
         </li>
         <% }) %>
       </ul>
       <div class="helps">
         第一步：使用font-face声明字体
         <pre>
-@font-face {font-family: 'iconfont';
-  src: url('iconfont.eot'); /* IE9*/
-  src: url('iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('iconfont.woff') format('woff'), /* chrome、firefox */
-  url('iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
-  url('iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+@font-face {font-family: '<%= fontName %>';
+  src: url('<%= fontName %>.eot'); /* IE9*/
+  src: url('<%= fontName %>.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('<%= fontName %>.woff2') format('woff2'),
+  url('<%= fontName %>.woff') format('woff'), /* chrome、firefox */
+  url('<%= fontName %>.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('<%= fontName %>.svg#iconfont') format('svg'); /* iOS 4.1- */
 }</pre>
         第二步：定义使用iconfont的样式
         <pre>
