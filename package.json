@@ -1,22 +1,23 @@
 {
-  "name": "ajk-iconfonts-lib",
+  "name": "use-iconfonts",
   "version": "0.1.3",
-  "description": "ajk-iconfont-lib",
+  "description": "use-iconfonts",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "./node_modules/babel-cli/bin/babel.js src --out-dir build",
-    "watch": "./node_modules/babel-cli/bin/babel.js src --watch --out-dir build",
-    "copyzip": "cp -r zipHtml package.json build",
-    "release": "npm run copyzip && (cd build && npm publish)",
+    "build": "./node_modules/babel-cli/bin/babel.js src --out-dir build/src && ./node_modules/babel-cli/bin/babel.js index.js --out-file build/index.js",
+    "watch": "./node_modules/babel-cli/bin/babel.js src --watch --out-dir build/src && ./node_modules/babel-cli/bin/babel.js index.js -watch --out-file build/index.js",
+    "copyfile" : "mkdir -p build && cp -r iconsTmp package.json README.md build/",
+    "release": "npm run build && npm run copyfile && cd build/ && npm publish",
     "patch": "npm version patch && npm run release"
   },
   "author": "rockywu <wjl19890427@hotmail.com>",
   "license": "ISC",
   "dependencies": {
+    "es6-promise": "^3.2.1",
     "gulp": "^3.9.1",
     "gulp-iconfont": "^8.0.1",
-    "gulp-rename": "^1.2.2",
+    "jszip": "^3.0.0",
     "mkdirp": "^0.5.1",
     "underscore": "^1.8.3"
   },

@@ -124,30 +124,16 @@ class iconfonts {
         return this.fonts;
     }
 
-    /**
-     * 执行生成fonts文件
-     * @param outPath
-     * @param cb
-     */
-    run(outPath, cb) {
+    formatOptions(options) {
         let _this = this;
-        if(this.fonts.length < 1) {
-            throw new Error("请先设置字体文件配置,可以使用setFonts函数进行设置");
-        }
-        let files = this.fonts.map(font => path.normalize(font.file));
-        console.log(files)
-        try {
-            mkdirp(outPath);
-        } catch(e) {
-            throw new Error("输出文件路径错误");
-        }
-        gulp.src(files)
-        .pipe(iconfont({
+        this.setFormats(options.formats || null);
+        let def = {
             fontName : "iconfonts",
-            formats : _this.formats,
+            formats : this.formats,
             centerHorizontally : true, //字体居中生成
             normalize : true, //所有字体标准输出
             fontHeight : 200, //字体高度为200
+            timestamp : Math.round(Date.now()/1000),
             metadataProvider : (file, cb) => {
                 let font = _this.fonts.find(config => config.file == file);
                 cb(null, {
@@ -155,7 +141,36 @@ class iconfonts {
                     unicode : font.unicode,
                 })
             }
-        }))
+        }
+        options = _.extend(def, options);
+        _.map(options, (val, key) => {
+            val === null && delete options[key];
+        })
+        return options;
+    }
+
+    /**
+     * 执行生成fonts文件
+     * @param outPath
+     * @param cb
+     */
+    run(outPath, options, cb) {
+        if(typeof options == 'function') {
+            cb = options;
+            options = {};
+        }
+        let _this = this;
+        if(this.fonts.length < 1) {
+            throw new Error("请先设置字体文件配置,可以使用setFonts函数进行设置");
+        }
+        let files = this.fonts.map(font => path.normalize(font.file));
+        try {
+            mkdirp.sync(outPath);
+        } catch(e) {
+            throw new Error("输出文件路径错误");
+        }
+        gulp.src(files)
+        .pipe(iconfont(_this.formatOptions(options)))
         .on('glyphs',(glyphs, options) => {
             /**
              * 字体生成完成
