@@ -5,8 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "./node_modules/babel-cli/bin/babel.js src --out-dir build/src && ./node_modules/babel-cli/bin/babel.js index.js --out-file build/index.js",
-    "watch": "./node_modules/babel-cli/bin/babel.js src --watch --out-dir build/src && ./node_modules/babel-cli/bin/babel.js index.js -watch --out-file build/index.js",
+    "build": "./node_modules/babel-cli/bin/babel.js src --out-dir build/src",
+    "watch": "./node_modules/babel-cli/bin/babel.js src --watch --out-dir build/src",
     "copyfile": "mkdir -p build && cp -r iconsTmp package.json README.md build/",
     "release": "npm run build && npm run copyfile && cd build/ && npm publish",
     "patch": "npm version patch && npm run release"
