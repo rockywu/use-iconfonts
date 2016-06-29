@@ -2,7 +2,7 @@
   "name": "use-iconfonts",
   "version": "0.1.13",
   "description": "use-iconfonts",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "./node_modules/babel-cli/bin/babel.js src --out-dir build/src && ./node_modules/babel-cli/bin/babel.js index.js --out-file build/index.js",
