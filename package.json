@@ -9,7 +9,7 @@
     "watch": "./node_modules/babel-cli/bin/babel.js src --watch --out-dir build/src",
     "copyfile": "mkdir -p build && cp -r iconsTmp package.json README.md build/",
     "release": "npm run build && npm run copyfile && cd build/ && npm publish",
-    "patch": "npm version patch && npm run release"
+    "patch": "rm -rf build && npm version patch && npm run release"
   },
   "author": "rockywu <wjl19890427@hotmail.com>",
   "license": "ISC",
