@@ -1,9 +1,15 @@
 "use strict";
 /**
+ * Created by rocky on 16/6/30.
+ */
+"use strict";
+/**
  * Created by rocky on 16/6/27.
  */
-const gulp = require("gulp");
-const iconfont = require('gulp-iconfont');
+const svgicons2svgfont = require('svgicons2svgfont');
+const svg2ttf = require('svg2ttf');
+const ttf2eot = require('ttf2eot');
+const ttf2woff = require('ttf2woff');
 const _ = require("underscore");
 const mkdirp = require("mkdirp");
 const path = require("path");
@@ -18,6 +24,11 @@ const fs = require("fs");
  */
 function isEmpty(val) {
     return val == "" || val == undefined;
+}
+
+function buildPath(filePath) {
+    filePath = filePath || "";
+    return path.normalize(filePath.replace("//", "/"));
 }
 
 class iconfonts {
@@ -132,18 +143,9 @@ class iconfonts {
         this.setFormats(options.formats || null);
         let def = {
             fontName : "iconfonts",
-            formats : this.formats,
             centerHorizontally : true, //字体居中生成
             normalize : true, //所有字体标准输出
             fontHeight : 200, //字体高度为200
-            timestamp : Math.round(Date.now()/1000),
-            metadataProvider : (file, cb) => {
-                let font = _this.fonts.find(config => config.file == file);
-                cb(null, {
-                    name : font.name,
-                    unicode : font.unicode,
-                })
-            }
         }
         options = _.extend(def, options);
         _.map(options, (val, key) => {
@@ -173,20 +175,46 @@ class iconfonts {
             throw new Error("输出文件路径错误");
         }
         options = _this.formatOptions(options);
-        gulp.src(files)
-        .pipe(iconfont(options))
-        .on('glyphs',(glyphs, opts) => {
-            /**
-             * 字体编译
-             */
-            console.log("字体编译完成", glyphs, opts);
-        })
-        .pipe(gulp.dest(outPath))
-        .on("finish", function() {
+        var fileName = buildPath(outPath + "/" + options.fontName);
+        console.log(fileName)
+        var filesPath = {
+            svg : fileName + ".svg",
+            ttf : fileName + ".ttf",
+            eot : fileName + ".eot",
+            woff : fileName + ".woff"
+        }
+        var fontStream = svgicons2svgfont(options);
+        fontStream.pipe(fs.createWriteStream(filesPath.svg))
+        .on('finish',function() {
+            console.log('Font SVG successfully created!');
+            var svgHtml = fs.readFileSync(filesPath.svg).toString();
+            console.log('svgHTML success');
+            var ttf = svg2ttf(svgHtml, {});
+            var ttfBuff = new Buffer(ttf.buffer);
+            fs.writeFileSync(filesPath.ttf, ttfBuff);
+            console.log('Font TTF successfully created!');
+            var ttfcontent2 = new Uint8Array(ttfBuff);
+            var woffcontent = new Buffer(ttf2woff(ttfcontent2).buffer);
+            var eotcontent = new Buffer(ttf2eot(ttfcontent2).buffer);
+            fs.writeFileSync(filesPath.eot, eotcontent);
+            fs.writeFileSync(filesPath.woff, woffcontent);
+            console.log('Font EOT,WOFF successfully created!');
             _this.runDemo(outPath, options).then(function () {
                 cb(options);
             });
+        })
+        .on('error',function(err) {
+            console.log(err);
         });
+        _.forEach(this.fonts, function(font) {
+            var iconStream = fs.createReadStream(font.file);
+            iconStream.metadata = {
+                unicode: font.unicode,
+                name: font.name
+            };
+            fontStream.write(iconStream);
+        });
+        fontStream.end();
     }
 
     /**
@@ -238,8 +266,11 @@ class iconfonts {
                 }
             });
         }).catch(function(err) {
-            console.log(err)
-        })
+                console.log(err)
+            })
     }
+
+
 }
 exports = module.exports = iconfonts;
+

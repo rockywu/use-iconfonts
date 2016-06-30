@@ -1,4 +1,4 @@
-var fonts = require("../src/fonts");
+var fonts = require("../src/oldFonts");
 var utils = require("../src/utils");
 var path = require("path");
 //var zip = require("../src/zip");
