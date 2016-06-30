@@ -172,17 +172,21 @@ class iconfonts {
         } catch(e) {
             throw new Error("输出文件路径错误");
         }
+        options = _this.formatOptions(options);
         gulp.src(files)
-        .pipe(iconfont(_this.formatOptions(options)))
-        .on('glyphs',(glyphs, options) => {
+        .pipe(iconfont(options))
+        .on('glyphs',(glyphs, opts) => {
             /**
-             * 字体生成完成
+             * 字体编译
              */
-            _this.runDemo(outPath, options).then(function() {
-                cb(glyphs, options);
-            });
+            console.log("字体编译完成", glyphs, opts);
         })
         .pipe(gulp.dest(outPath))
+        .on("end", function() {
+            _this.runDemo(outPath, options).then(function () {
+                cb(options);
+            });
+        });
     }
 
     /**

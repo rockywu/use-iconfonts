@@ -19,7 +19,7 @@ f.setFonts([
         file : p + "clear.svg",
     }
 ])
-f.run(__dirname + "/../out/pp", function(gylphs, options) {
-    console.log(1212, gylphs, options);
+f.run(__dirname + "/../out/pp", function(options) {
+    console.log(1212, options);
 })
 
