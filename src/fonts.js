@@ -178,8 +178,9 @@ class iconfonts {
             /**
              * 字体生成完成
              */
-            _this.runDemo(outPath, options);
-            cb(glyphs, options);
+            _this.runDemo(outPath, options).then(function() {
+                cb(glyphs, options);
+            });
         })
         .pipe(gulp.dest(outPath))
     }
