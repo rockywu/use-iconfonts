@@ -209,7 +209,6 @@ class iconfonts {
         });
         return promise.all(ps).then(function(templates) {
             _.forEach(templates, (content, key) => {
-                console.log(content);
                 fs.writeFileSync(outParse.dir + "/" + outParse.base + "/" + iconsTemplate[key], content);
             })
         }).catch((err) => {
