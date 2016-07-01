@@ -156,7 +156,6 @@ class fontBunder{
         this.makeSVG(iconStreams, (content) => {
             //svg
             data.push({
-                bufferType : "svg",
                 name : _this.fontOptions.fontName + ".svg",
                 content : content
             });
@@ -167,28 +166,24 @@ class fontBunder{
             let ttfBuffer = new Buffer(ttfFont.buffer);
             let ttfUint8Array = new Uint8Array(ttfBuffer);
             data.push({
-                bufferType : "ttf",
                 name: _this.fontOptions.fontName + ".ttf",
                 content: ttfFont.buffer,
                 buffer2Content : new Buffer(ttfFont.buffer),
             });
             //eot
             data.push({
-                bufferType : "eot",
                 name : _this.fontOptions.fontName + ".eot",
                 content : eotFont.buffer,
                 buffer2Content : new Buffer(_this.makeEOT(ttfUint8Array).buffer),
             });
             //woff
             data.push({
-                bufferType : "woff",
                 name : _this.fontOptions.fontName + ".woff",
                 content : woffFont.buffer,
                 buffer2Content : new Buffer(_this.makeWOFF(ttfUint8Array).buffer)
             });
             //woff2
             data.push({
-                bufferType : "woff2",
                 name : _this.fontOptions.fontName + ".woff2",
                 content : _this.makeWOFF2(ttfFont.buffer),
                 buffer2Content : new Buffer(_this.makeWOFF2(ttfUint8Array).buffer)
@@ -201,16 +196,8 @@ class fontBunder{
                 callback(zip.generate({type : "nodebuffer", compression: 'DEFLATE'}));
                 zip = null;
             } else {
-                //todo 存在无法进行正常转码错误,当不压缩文件时
                 data = _.map(data, row=> {
-                    switch(row.bufferType) {
-                        case "ttf":
-                        case "eot":
-                        case "woff":
-                        case "woff2":
-                            row.content = row.buffer2Content || row.content
-                            break;
-                    }
+                    row.content = row.buffer2Content || row.content
                     return row;
                 });
                 callback(data);

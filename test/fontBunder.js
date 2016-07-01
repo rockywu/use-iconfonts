@@ -23,9 +23,10 @@ var fonts = [
         content : content,
     }
 ];
+//fb.setHasDemo(false);
 fb.setIsZip(false);
 fb.generate(fonts, {
-    //fontName : "myfont"
+    fontName : "myfont"
 },function (rs) {
     var p = path.normalize(__dirname + "/../out/");
     mkdirp.sync(p);
