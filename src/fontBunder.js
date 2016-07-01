@@ -161,33 +161,37 @@ class fontBunder{
                 content : content
             });
             //ttf
-            let ttfFontBuffer = _this.makeTTF(content);
-            let ttf2Buffer = new Buffer(ttfFontBuffer);
-            let ttfUnit8Array = new Uint8Array(ttf2Buffer);
+            let ttfFont = _this.makeTTF(content);
+            let eotFont = _this.makeEOT(ttfFont.buffer);
+            let woffFont = _this.makeWOFF(ttfFont.buffer);
+            let ttfBuffer = new Buffer(ttfFont.buffer);
+            let ttfUint8Array = new Uint8Array(ttfBuffer);
             data.push({
                 bufferType : "ttf",
                 name: _this.fontOptions.fontName + ".ttf",
-                content: ttfFontBuffer,
-                buffer2Content : ttf2Buffer
+                content: ttfFont.buffer,
+                buffer2Content : new Buffer(ttfFont.buffer),
             });
             //eot
             data.push({
                 bufferType : "eot",
                 name : _this.fontOptions.fontName + ".eot",
-                content : _this.makeEOT(ttfFontBuffer),
-                buffer2Content : new Buffer(_this.makeEOT(ttfUnit8Array)),
+                content : eotFont.buffer,
+                buffer2Content : new Buffer(_this.makeEOT(ttfUint8Array).buffer),
             });
             //woff
             data.push({
                 bufferType : "woff",
                 name : _this.fontOptions.fontName + ".woff",
-                content : _this.makeWOFF(ttfFontBuffer)
+                content : woffFont.buffer,
+                buffer2Content : new Buffer(_this.makeWOFF(ttfUint8Array).buffer)
             });
             //woff2
             data.push({
                 bufferType : "woff2",
                 name : _this.fontOptions.fontName + ".woff2",
-                content : _this.makeWOFF2(ttfFontBuffer)
+                content : _this.makeWOFF2(ttfFont.buffer),
+                buffer2Content : new Buffer(_this.makeWOFF2(ttfUint8Array).buffer)
             });
             if (_this.isZip) {
                 let zip = new jsZip();
@@ -262,10 +266,10 @@ class fontBunder{
     /**
      * TTF字体数据
      * @param svgFont
-     * @return {*}
+     * @return
      */
     makeTTF(svgFont) {
-        return svg2ttf(svgFont).buffer;
+        return svg2ttf(svgFont);
     }
 
     /**
@@ -274,7 +278,7 @@ class fontBunder{
      * @return {*}
      */
     makeEOT(ttfFontBuffer) {
-        return ttf2eot(ttfFontBuffer).buffer;
+        return ttf2eot(ttfFontBuffer);
     }
 
     /**
@@ -283,7 +287,7 @@ class fontBunder{
      * @return {*}
      */
     makeWOFF(ttfFontBuffer) {
-        return ttf2woff(new Uint8Array(ttfFontBuffer.buffer)).buffer;
+        return ttf2woff(new Uint8Array(ttfFontBuffer.buffer));
     }
 
     /**

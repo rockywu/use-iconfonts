@@ -23,7 +23,7 @@ var fonts = [
         content : content,
     }
 ];
-//fb.setIsZip(false);
+fb.setIsZip(false);
 fb.generate(fonts, {
     //fontName : "myfont"
 },function (rs) {
