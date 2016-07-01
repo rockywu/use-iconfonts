@@ -156,31 +156,36 @@ class fontBunder{
         this.makeSVG(iconStreams, (content) => {
             //svg
             data.push({
+                bufferType : "svg",
                 name : _this.fontOptions.fontName + ".svg",
                 content : content
             });
             //ttf
             let ttfFontBuffer = _this.makeTTF(content);
+            let ttf2Buffer = new Buffer(ttfFontBuffer);
+            let ttfUnit8Array = new Uint8Array(ttf2Buffer);
             data.push({
-                needBuffer : "ttf",
+                bufferType : "ttf",
                 name: _this.fontOptions.fontName + ".ttf",
-                content: ttfFontBuffer
+                content: ttfFontBuffer,
+                buffer2Content : ttf2Buffer
             });
             //eot
             data.push({
-                needBuffer : "eot",
+                bufferType : "eot",
                 name : _this.fontOptions.fontName + ".eot",
-                content : _this.makeEOT(ttfFontBuffer)
+                content : _this.makeEOT(ttfFontBuffer),
+                buffer2Content : new Buffer(_this.makeEOT(ttfUnit8Array)),
             });
             //woff
             data.push({
-                needBuffer : "woff",
+                bufferType : "woff",
                 name : _this.fontOptions.fontName + ".woff",
                 content : _this.makeWOFF(ttfFontBuffer)
             });
             //woff2
             data.push({
-                needBuffer : "woff2",
+                bufferType : "woff2",
                 name : _this.fontOptions.fontName + ".woff2",
                 content : _this.makeWOFF2(ttfFontBuffer)
             });
@@ -193,12 +198,17 @@ class fontBunder{
                 zip = null;
             } else {
                 //todo 存在无法进行正常转码错误,当不压缩文件时
-                //data = _.map(data, row=> {
-                //    if(row.needBuffer === true) {
-                //        row.content = new Buffer(row.content).buffer;
-                //    }
-                //    return row;
-                //});
+                data = _.map(data, row=> {
+                    switch(row.bufferType) {
+                        case "ttf":
+                        case "eot":
+                        case "woff":
+                        case "woff2":
+                            row.content = row.buffer2Content || row.content
+                            break;
+                    }
+                    return row;
+                });
                 callback(data);
             }
         });
