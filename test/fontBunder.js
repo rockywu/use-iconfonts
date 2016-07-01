@@ -8,6 +8,7 @@ var p = __dirname + "/../template/svgs/";
 var fb = new fontBunder();
 var mkdirp = require("mkdirp");
 var path = require("path");
+var content = fs.readFileSync(p + "clear.svg", "utf8");
 var fonts = [
     {
         unicode : "e001",
@@ -19,7 +20,7 @@ var fonts = [
     },
     {
         unicode : "e003",
-        file : p + "clear.svg",
+        content : content,
     }
 ];
 //fb.setIsZip(false);

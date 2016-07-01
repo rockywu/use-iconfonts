@@ -89,7 +89,8 @@ class fontBunder{
      * [
      *  {
      *      file : "filepath",//文件所在路径
-     *      name : "name", //文件名称
+     *      content : "content", //字体文件内容
+     *      name : "name", //字体名称昵称
      *      clasname : "classname", //文件自定义classname
      *      unicode : "ea00", //自定义字体编码
      *  }
@@ -103,7 +104,7 @@ class fontBunder{
             return [];
         }
         fonts = fonts.map(font => {
-            if (_.isEmpty(font.file)) {
+            if (_.isEmpty(font.file) && _.isEmpty(font.content)) {
                 return false;
             }
             let unicode = null;
@@ -117,8 +118,9 @@ class fontBunder{
             }
             let code = utils.int2Hex(unicode);
             let tmp = {};
-            tmp.file = path.normalize(font.file);
-            tmp.name = font.name || code;
+            tmp.file = font.file ? path.normalize(font.file) : "";
+            tmp.content = font.content;
+            tmp.name = code;
             tmp.classname = font.classname || code;
             tmp.unicode = [String.fromCharCode(unicode)];
             tmp.code = code;
@@ -209,8 +211,14 @@ class fontBunder{
      */
     newIconStream(font) {
         let iconStream = new stream();
+        let content = "";
         try {
-            iconStream.write(fs.readFileSync(font.file, "utf8"), "utf8");
+            if(_.isString(font.content) && font.content != "") {
+                content = font.content;
+            } else {
+                content = fs.readFileSync(font.file, "utf8");
+            }
+            iconStream.write(content, "utf8");
             iconStream.end();
         } catch(e) {
             iconStream.end();
