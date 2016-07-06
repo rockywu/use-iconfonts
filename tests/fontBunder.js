@@ -4,7 +4,7 @@
  */
 var fs = require("fs");
 var fontBunder = require("../src/fontBunder");
-var p = __dirname + "/../template/svgs/";
+var p = __dirname + "/";
 var fb = new fontBunder();
 var mkdirp = require("mkdirp");
 var path = require("path");
@@ -24,7 +24,7 @@ var fonts = [
     }
 ];
 //fb.setHasDemo(false);
-fb.setIsZip(false);
+//fb.setIsZip(false);
 fb.generate(fonts, {
     fontName : "myfont"
 },function (rs) {

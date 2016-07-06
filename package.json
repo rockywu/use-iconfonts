@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "./node_modules/babel-cli/bin/babel.js src --out-dir build/src",
     "watch": "./node_modules/babel-cli/bin/babel.js src --watch --out-dir build/src",
-    "copyfile": "mkdir -p build && cp -r iconsTmp package.json README.md .npmignore build/",
+    "copyfile": "mkdir -p build && cp -r iconsTmp tests package.json README.md .npmignore build/",
     "release": "npm run build && npm run copyfile && cd build/ && npm publish",
     "patch": "rm -rf build && npm version patch && npm run release"
   },
