@@ -73,11 +73,11 @@ fb.generate(fonts, {
 #### Api
 
 * setHasDemo(boolean)
-    * boolean  //false 不输出demo例子， Default true
+    * boolean  false 不输出demo例子， Default true
 * setIsZip(boolean)
-    * boolean  //false 不作为zip输出，Default ture
+    * boolean  false 不作为zip输出，Default ture
 * generate(fontConfings, options, callback)
-    * fontConfigs  //** array **
+    * fontConfigs  ** array **
     
         ````
         [
@@ -91,9 +91,9 @@ fb.generate(fonts, {
             },
         ]
         ````
-    * options //** object **
+    * options ** object **
         * 可以参考[svgicons2svgfont.options](https://github.com/nfroidure/svgicons2svgfont#svgicons2svgfontoptions),中options配置介绍。
-    * callback //** function **
+    * callback ** function **
         * example
         
         ````
