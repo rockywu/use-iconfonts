@@ -72,10 +72,10 @@ fb.generate(fonts, {
 
 #### Api
 
-* setHasDemo(boolean)
-    * boolean  false 不输出demo例子， Default true
-* setIsZip(boolean)
-    * boolean  false 不作为zip输出，Default ture
+* setHasDemo(bool)
+    * boolean  set:**false** 不输出demo例子， **Default**: true
+* setIsZip(bool)
+    * boolean  set:**false** 不作为zip输出，**Default**: ture
 * generate(fontConfings, options, callback)
     * fontConfigs  **array**
     
