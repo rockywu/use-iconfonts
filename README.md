@@ -8,11 +8,11 @@
 ### feature
 can build font's file
 
-* .woff2 ** browser chrome、firefox **
-* .woff ** browser chrome、firefox **
-* .ttf ** browser chrome、firefox、opera、Safari, Android, iOS 4.2+ **
-* .eot ** browser IE+ **
-* .svg ** browser iOS 4.1- **
+* .woff2 **browser chrome、firefox**
+* .woff **browser chrome、firefox**
+* .ttf **browser chrome、firefox、opera、Safari, Android, iOS 4.2+**
+* .eot **browser IE+**
+* .svg **browser iOS 4.1-**
 
 
 ### Install
@@ -77,7 +77,7 @@ fb.generate(fonts, {
 * setIsZip(boolean)
     * boolean  false 不作为zip输出，Default ture
 * generate(fontConfings, options, callback)
-    * fontConfigs  ** array **
+    * fontConfigs  **array**
     
         ````
         [
@@ -91,9 +91,9 @@ fb.generate(fonts, {
             },
         ]
         ````
-    * options ** object **
+    * options **object**
         * 可以参考[svgicons2svgfont.options](https://github.com/nfroidure/svgicons2svgfont#svgicons2svgfontoptions),中options配置介绍。
-    * callback ** function **
+    * callback **function**
         * example
         
         ````
