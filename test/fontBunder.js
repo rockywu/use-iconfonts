@@ -16,11 +16,11 @@ var fonts = [
     },
     {
         unicode : "e002",
-        file : p + "upa.svg",
+        content : content,
     },
     {
         unicode : "e003",
-        content : content,
+        file : p + "upa.svg",
     }
 ];
 //fb.setHasDemo(false);

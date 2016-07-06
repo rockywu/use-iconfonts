@@ -21,11 +21,9 @@ const mkdirp = require("mkdirp");
 class fontBunder{
 
     /**
-     *
-     * @param boolean isDemo 是否生成demo default : true;
-     * @param boolean isZip 是否生成zip文件
+     * 字体打包压缩
      */
-    constructor(isDemo, isZip) {
+    constructor() {
         this.isZip = true;
         this.hasDemo = true;
         this.fontOptions = null;
@@ -146,8 +144,12 @@ class fontBunder{
             callback("files is empty || fonts is a invalid data");
             return;
         }
-        let iconStreams = _.map(fonts, (font) => {
-            return _this.newIconStream(font);
+        let iconStreams = [];
+        _.forEach(fonts, (font) => {
+            let tmp = _this.newIconStream(font);
+            if(tmp !== null) {
+                iconStreams.push(tmp);
+            }
         });
         let data = [];
         if(this.hasDemo) {
@@ -208,7 +210,7 @@ class fontBunder{
     /**
      *
      * @param object file 文件字体格式
-     * @return {*}
+     * @return object
      */
     newIconStream(font) {
         let iconStream = new stream();
@@ -223,6 +225,7 @@ class fontBunder{
             iconStream.end();
         } catch(e) {
             iconStream.end();
+            return null;
         }
         iconStream.metadata = {
             unicode : font.unicode,
