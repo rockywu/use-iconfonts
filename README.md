@@ -93,8 +93,8 @@ fb.generate(fonts, {
         ````
     * options **object**
         * 可以参考[svgicons2svgfont.options](https://github.com/nfroidure/svgicons2svgfont#svgicons2svgfontoptions),中options配置介绍。
-        prependUnicode : false, //自动生成unicode, default false, true -auto unicode
-        startUnicode : 0xEA01 //自动开始编号 start unicode
+        * prependUnicode : false, //自动生成unicode, default false, true -auto unicode
+        * startUnicode : 0xEA01 //自动开始编号 start unicode
     * callback **function**
         * example
         
