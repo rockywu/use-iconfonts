@@ -14,7 +14,6 @@ const stream = require("stream").PassThrough;
 const fs = require("fs");
 const utils = require("./utils");
 const path = require("path");
-const mkdirp = require("mkdirp");
 /**
  * 运行生成字体文件
  */
