@@ -117,12 +117,12 @@ class fontBunder{
             let code = utils.int2Hex(unicode);
             let tmp = {};
             tmp.file = font.file ? path.normalize(font.file) : "";
-            tmp.content = font.content;
+            tmp.content = font.content || null;
             tmp.name = code;
             tmp.classname = font.classname || code;
             tmp.unicode = [String.fromCharCode(unicode)];
             tmp.code = code;
-            return tmp;
+            return _.extend({}, font, tmp);
         });
         return fonts.filter(font => font !== false);
     }
@@ -202,7 +202,14 @@ class fontBunder{
                     row.content = row.buffer2Content || row.content
                     return row;
                 });
-                callback(data);
+                _.forEach(fonts, (font, key) => {
+                    delete fonts[key].content;
+                    delete fonts[key].file;
+                    delete fonts[key].unicode;
+                });
+                callback(data, fonts);
+                data = null;
+                fonts = null;
             }
         });
     }

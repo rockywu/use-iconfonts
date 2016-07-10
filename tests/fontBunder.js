@@ -11,28 +11,33 @@ var path = require("path");
 var content = fs.readFileSync(p + "clear.svg", "utf8");
 var fonts = [
     {
-        unicode : "e001",
+        unicode : "e007",
+        hash : "asdfasdf1",
         file : p + "add.svg",
     },
     {
-        unicode : "e002",
+        unicode : "e006",
+        hash : "asdfasdf2",
         content : content,
     },
     {
-        unicode : "e003",
+        unicode : "e005",
+        hash : "asdfasdf3",
         file : p + "upa.svg",
     }
 ];
 //fb.setHasDemo(false);
-//fb.setIsZip(false);
+fb.setIsZip(false);
 fb.generate(fonts, {
-    fontName : "myfont"
-},function (rs) {
+    fontName : "myfont",
+    prependUnicode : true,
+    startUnicode : 0xEB01
+},function (rs, fonts) {
     var p = path.normalize(__dirname + "/../out/");
     mkdirp.sync(p);
     if(rs instanceof Array) {
+        console.log(fonts)
         rs.map(function(val) {
-            console.log(val.content)
             fs.writeFileSync(p + val.name, val.content);
         })
     } else {
