@@ -6,7 +6,11 @@
   url('<%= fontName %>.ttf?t=<%= timestamp%>') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
   url('<%= fontName %>.svg?t=<%= timestamp%>#iconfont') format('svg'); /* iOS 4.1- */
 }
-
+/*
+ * 1、在支持css3游览器。建议使用，eg: <div class="icon-eb01"></div>
+ * 2、在支持伪类:before,:after游览器下。建议使用，eg:<div class="iconfont icon-eb01></div>
+ * 3、低版本游览器模式（如：IE6,IE7,IE8...）。建议使用，eg:<div class="iconfont">&#xeb01</div>
+ */
 .iconfont {
   font-family:"<%= fontName %>" !important;
   font-size:16px;
@@ -15,6 +19,17 @@
   -webkit-text-stroke-width: 0.2px;
   -moz-osx-font-smoothing: grayscale;
 }
+[class*="icon-"]:before{
+  font-family:"<%= fontName %>" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  vertical-align: middle;
+}
+
 <% _.each(fonts, function(font) { %>
 .icon-<%= font.classname%>:before { content : "<%= '\\' + font.code%>"}
 <% })%>
