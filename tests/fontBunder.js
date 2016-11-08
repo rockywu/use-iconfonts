@@ -4,34 +4,27 @@
  */
 var fs = require("fs");
 var fontBunder = require("../src/fontBunder");
-var p = __dirname + "/";
+var iconPath = __dirname + "/icons/";
 var fb = new fontBunder();
 var mkdirp = require("mkdirp");
 var path = require("path");
-var content = fs.readFileSync(p + "clear.svg", "utf8");
-var fonts = [
-    {
-        unicode : "e007",
-        hash : "asdfasdf1",
-        file : p + "add.svg",
-    },
-    {
-        unicode : "e006",
-        hash : "asdfasdf2",
-        content : content,
-    },
-    {
-        unicode : "e005",
-        hash : "asdfasdf3",
-        file : p + "upa.svg",
+var dirs = fs.readdirSync(iconPath);
+var fonts = [];
+dirs.forEach(function(v, k) {
+    if(v.indexOf(".") == 0) {
+        return;
     }
-];
-//fb.setHasDemo(false);
+    fonts.push({
+        file : iconPath + v,
+    })
+});
+//fb.setHasDemo(false);// 是否输出demo
 fb.setIsZip(false);
+// fb.resetViewBoxSize(false); //重新设置viewBox宽高
 fb.generate(fonts, {
     fontName : "myfont",
-    prependUnicode : true,
-    startUnicode : 0xEB01
+    prependUnicode : true, //自动生成unicode
+    startUnicode : 0xEA01 //自动开始编号
 },function (rs, fonts) {
     var p = path.normalize(__dirname + "/../out/");
     mkdirp.sync(p);

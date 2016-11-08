@@ -52,6 +52,8 @@ var fonts = [
 fb.setHasDemo(false);
 // 设置输出文件格式为zip 默认为true
 fb.setIsZip(false);
+// 重新设置viewBox大小 默认为true
+fb.resetViewBoxSize(false);
 //开始生成文件
 fb.generate(fonts, {
     fontName : "myfont" //设置字体名
@@ -76,6 +78,8 @@ fb.generate(fonts, {
     * boolean  set:**false** 不输出demo例子， **Default**: true
 * setIsZip(bool)
     * boolean  set:**false** 不作为zip输出，**Default**: ture
+* resetViewBoxSize(bool)
+    * boolean  set:**false** 使用默认svg width and height, **Default**: true, 重新设置viewBox width height
 * generate(fontConfings, options, callback)
     * fontConfigs  **array**
     

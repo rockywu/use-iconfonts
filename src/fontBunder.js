@@ -25,6 +25,7 @@ class fontBunder{
     constructor() {
         this.isZip = true;
         this.hasDemo = true;
+        this.viewBoxSize = true;
         this.fontOptions = null;
     }
 
@@ -45,6 +46,14 @@ class fontBunder{
      */
     setIsZip(bool) {
         this.isZip = bool === false ? false : true;
+        return this;
+    }
+
+    /**
+     * 格式化画布大小
+     */
+    resetViewBoxSize(bool) {
+        this.viewBoxSize = bool === false ? false : true;
         return this;
     }
 
@@ -226,6 +235,23 @@ class fontBunder{
                 content = font.content;
             } else {
                 content = fs.readFileSync(font.file, "utf8");
+            }
+            //fixed bug 修复当画布大小不一致时导致的何必错误
+            if(this.viewBoxSize) {
+                let viewBoxRE = /viewBox=[^ ]+\s+[^ "']+\s+([^ "']+)\s+([^ "']+)/;
+                let widthRE = /width=([^ <>]+)/;
+                let heightRe = /height=([^ <>]+)/;
+                let w;
+                let h;
+                //重新设置画布
+                content.replace(viewBoxRE, function() {
+                    w = RegExp.$1;
+                    h = RegExp.$2;
+                });
+                if(w && h) {
+                    content = content.replace(widthRE, 'width="' + w + '"');
+                    content = content.replace(heightRe, 'height="'+ h +'"');
+                }
             }
             iconStream.write(content, "utf8");
             iconStream.end();
