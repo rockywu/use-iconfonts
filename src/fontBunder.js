@@ -79,13 +79,15 @@ class fontBunder{
             fontHeight : 200, //字体高度200
             centerHorizontally : true, //字体居中生成
             prependUnicode : false, //自动生成unicode
-            startUnicode : 0xEA01 //自动开始编号
+            startUnicode : 0xEA01, //自动开始编号
+            className : "iconfont" //class样式名称
         };
         options = _.extend(def, options);
         _.forEach(options, (val, key) => {
             val === null && delete options[key];
         })
-        options.fontName = options.fontName || "iconfonts";
+        options.fontName = options.fontName || def.fontName;
+        options.className = options.className || def.className;
         this.fontOptions = options;
     }
 
@@ -347,6 +349,7 @@ class fontBunder{
                 fonts : fonts,
                 fontName : _this.fontOptions.fontName,
                 timestamp : timestamp,
+                className : _this.fontOptions.className
             });
             result.push({
                 name : fileName,

@@ -22,6 +22,7 @@ dirs.forEach(function(v, k) {
 fb.setIsZip(false);
 // fb.resetViewBoxSize(false); //重新设置viewBox宽高
 fb.generate(fonts, {
+    className : "myclass",
     fontName : "myfont",
     prependUnicode : true, //自动生成unicode
     startUnicode : 0xEA01 //自动开始编号

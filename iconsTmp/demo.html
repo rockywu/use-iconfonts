@@ -13,7 +13,7 @@
       <ul class="icon_lists clear">
         <% _.each(fonts, function(font) { %>
         <li>
-          <i class="icon iconfont">&#x<%= font.code %>;</i>
+          <i class="icon <%= className %> ">&#x<%= font.code %>;</i>
           <div class="name"><%= font.name %></div>
           <div class="code">&amp;#x<%= font.code%>;</div>
           <div class="fontclass">.icon-<%= font.classname %></div>
@@ -35,11 +35,11 @@
         <pre>
 /*
  * 1、在支持css3游览器。建议使用，eg: &lt;div class="icon-eb01"&gt;&lt;/div&gt;
- * 2、在支持伪类:before,:after游览器下。建议使用，eg:&lt;div class="iconfont icon-eb01"&gt;&lt;/div&gt;
- * 3、低版本游览器模式（如：IE6,IE7,IE8...）。建议使用，eg:&lt;div class="iconfont"&gt;&amp;#xeb01&lt;/div&gt;
+ * 2、在支持伪类:before,:after游览器下。建议使用，eg:&lt;div class="<%= className %>  icon-eb01"&gt;&lt;/div&gt;
+ * 3、低版本游览器模式（如：IE6,IE7,IE8...）。建议使用，eg:&lt;div class="<%= className %> "&gt;&amp;#xeb01&lt;/div&gt;
  */
 /* 兼容所有版本写法 */
-.iconfont{
+.<%= className %> {
     font-family:"<%= fontName %>" !important;
     font-size:16px;
     font-style:normal;
@@ -59,7 +59,7 @@
 }
 </pre>
         第三步：挑选相应图标并获取字体编码，应用于页面
-        <pre>&lt;i class="iconfont"&gt;&amp;#xea01;&lt;/i&gt;</pre>
+        <pre>&lt;i class="<%= className %> "&gt;&amp;#xea01;&lt;/i&gt;</pre>
         </div>
       </div>
   </body>
