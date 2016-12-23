@@ -340,7 +340,6 @@ class fontBunder{
      */
     fontDemo(fonts) {
         let _this = this;
-        let timestamp = Math.round(Date.now()/1000);
         let p = path.normalize(__dirname + "/../iconsTmp/");
         let iconsTemplate = ["demo.css", "demo.html", "iconfont.css"];
         let result = [];
@@ -348,7 +347,6 @@ class fontBunder{
             let content = _this.template(fs.readFileSync(p + fileName, "utf8"), {
                 fonts : fonts,
                 fontName : _this.fontOptions.fontName,
-                timestamp : timestamp,
                 className : _this.fontOptions.className
             });
             result.push({

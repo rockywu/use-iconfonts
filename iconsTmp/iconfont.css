@@ -1,10 +1,10 @@
 @font-face {font-family: "<%= fontName %>";
-  src: url('<%= fontName %>.eot?t=<%= timestamp%>'); /* IE9*/
-  src: url('<%= fontName %>.eot?t=<%= timestamp%>#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('<%= fontName %>.woff2?t=<%= timestamp%>') format('woff2'),/* chrome、firefox, the latest version*/
-  url('<%= fontName %>.woff?t=<%= timestamp%>') format('woff'), /* chrome, firefox */
-  url('<%= fontName %>.ttf?t=<%= timestamp%>') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-  url('<%= fontName %>.svg?t=<%= timestamp%>#iconfont') format('svg'); /* iOS 4.1- */
+  src: url('<%= fontName %>.eot'); /* IE9*/
+  src: url('<%= fontName %>.eot#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('<%= fontName %>.woff2') format('woff2'),/* chrome、firefox, the latest version*/
+  url('<%= fontName %>.woff') format('woff'), /* chrome, firefox */
+  url('<%= fontName %>.ttf') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('<%= fontName %>.svg#iconfont') format('svg'); /* iOS 4.1- */
 }
 /*
  * 1、在支持css3游览器。建议使用，eg: <div class="icon-eb01"></div>
