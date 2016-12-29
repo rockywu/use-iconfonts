@@ -80,14 +80,16 @@ class fontBunder{
             centerHorizontally : true, //字体居中生成
             prependUnicode : false, //自动生成unicode
             startUnicode : 0xEA01, //自动开始编号
-            className : "iconfont" //class样式名称
+            className : "iconfont", //class样式名称,
+            iconPrefix : "icon" //生成的icon css class名称
         };
-        options = _.extend(def, options);
+        options = _.extend({}, def, options);
         _.forEach(options, (val, key) => {
             val === null && delete options[key];
         })
         options.fontName = options.fontName || def.fontName;
         options.className = options.className || def.className;
+        options.iconPrefix = options.iconPrefix || def.iconPrefix;
         this.fontOptions = options;
     }
 
@@ -347,7 +349,8 @@ class fontBunder{
             let content = _this.template(fs.readFileSync(p + fileName, "utf8"), {
                 fonts : fonts,
                 fontName : _this.fontOptions.fontName,
-                className : _this.fontOptions.className
+                className : _this.fontOptions.className,
+                iconPrefix : _this.fontOptions.iconPrefix
             });
             result.push({
                 name : fileName,

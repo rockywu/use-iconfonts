@@ -24,6 +24,7 @@ fb.setIsZip(false);
 fb.generate(fonts, {
     className : "myclass",
     fontName : "myfont",
+    iconPrefix: "i",
     prependUnicode : true, //自动生成unicode
     startUnicode : 0xEA01 //自动开始编号
 },function (rs, fonts) {

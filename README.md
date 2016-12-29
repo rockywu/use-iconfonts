@@ -101,6 +101,7 @@ fb.generate(fonts, {
         * startUnicode  自动开始编号 start unicode, default - 0xEA01
         * fontName 生成的字体模板名称 fontName
         * className 生成的字体模板样式名称 className
+        * iconPrefix 生成字体样式模板的class前缀 如.icon-ea01 (icon为前缀)
     * callback **function**
         * example
         

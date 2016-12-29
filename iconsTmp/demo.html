@@ -16,7 +16,7 @@
           <i class="icon <%= className %> ">&#x<%= font.code %>;</i>
           <div class="name"><%= font.name %></div>
           <div class="code">&amp;#x<%= font.code%>;</div>
-          <div class="fontclass">.icon-<%= font.classname %></div>
+          <div class="fontclass">.<%= iconPrefix%>-<%= font.classname %></div>
         </li>
         <% }) %>
       </ul>
@@ -34,8 +34,8 @@
         第二步：定义使用iconfont的样式
         <pre>
 /*
- * 1、在支持css3游览器。建议使用，eg: &lt;div class="icon-eb01"&gt;&lt;/div&gt;
- * 2、在支持伪类:before,:after游览器下。建议使用，eg:&lt;div class="<%= className %>  icon-eb01"&gt;&lt;/div&gt;
+ * 1、在支持css3游览器。建议使用，eg: &lt;div class="<%= iconPrefix%>-eb01"&gt;&lt;/div&gt;
+ * 2、在支持伪类:before,:after游览器下。建议使用，eg:&lt;div class="<%= className %>  <%= iconPrefix%>-eb01"&gt;&lt;/div&gt;
  * 3、低版本游览器模式（如：IE6,IE7,IE8...）。建议使用，eg:&lt;div class="<%= className %> "&gt;&amp;#xeb01&lt;/div&gt;
  */
 /* 兼容所有版本写法 */
@@ -47,7 +47,7 @@
     -webkit-text-stroke-width: 0.2px;
     -moz-osx-font-smoothing: grayscale;
 }
-[class*="icon-"]:before {
+[class*="<%= iconPrefix%>-"]:before {
     font-family:"<%= fontName %>" !important;
     font-size:16px;
     font-style:normal;
