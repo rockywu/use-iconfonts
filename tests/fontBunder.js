@@ -19,7 +19,7 @@ dirs.forEach(function(v, k) {
     })
 });
 //fb.setHasDemo(false);// 是否输出demo
-fb.setIsZip(false);
+fb.setIsZip(false).setCleanCss(false);
 // fb.resetViewBoxSize(false); //重新设置viewBox宽高
 fb.generate(fonts, {
     className : "myclass",

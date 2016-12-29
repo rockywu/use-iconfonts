@@ -21,6 +21,7 @@
     "url": "https://github.com/rockywu/use-iconfonts/issues"
   },
   "dependencies": {
+    "clean-css": "^3.4.23",
     "jszip": "2.5.0",
     "string_decoder": "^0.10.31",
     "svg2ttf": "^4.0.1",

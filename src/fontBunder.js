@@ -14,6 +14,7 @@ const stream = require("stream").PassThrough;
 const fs = require("fs");
 const utils = require("./utils");
 const path = require("path");
+const cleanCss = require("clean-css");
 /**
  * 运行生成字体文件
  */
@@ -23,6 +24,7 @@ class fontBunder{
      * 字体打包压缩
      */
     constructor() {
+        this.cleanCss = true;
         this.isZip = true;
         this.hasDemo = true;
         this.viewBoxSize = true;
@@ -46,6 +48,16 @@ class fontBunder{
      */
     setIsZip(bool) {
         this.isZip = bool === false ? false : true;
+        return this;
+    }
+
+    /**
+     * setCleanCss
+     * @param boolean bool bool 是否输出美化后的css, 默认为true
+     * @return self
+     */
+    setCleanCss(bool) {
+        this.cleanCss = bool === false ? false : true;
         return this;
     }
 
@@ -345,6 +357,11 @@ class fontBunder{
         let p = path.normalize(__dirname + "/../iconsTmp/");
         let iconsTemplate = ["demo.css", "demo.html", "iconfont.css"];
         let result = [];
+        let annotation = `/**
+ * use-iconfonts http://github.com/rockywu/use-iconfonts
+ * @author rockywu <wjl19890427@hotmail.com>
+ */
+`;
         _.forEach(iconsTemplate, fileName => {
             let content = _this.template(fs.readFileSync(p + fileName, "utf8"), {
                 fonts : fonts,
@@ -352,9 +369,14 @@ class fontBunder{
                 className : _this.fontOptions.className,
                 iconPrefix : _this.fontOptions.iconPrefix
             });
+            if(_this.cleanCss && /\.css$/.test(fileName)) {
+                content = new cleanCss({
+                    compatibility : "ie7"
+                }).minify(content).styles;
+            }
             result.push({
                 name : fileName,
-                content : content
+                content : annotation + content
             })
         });
         return result;
