@@ -374,9 +374,10 @@ class fontBunder{
                     compatibility : "ie7"
                 }).minify(content).styles;
             }
+            //fix v1.9.5 bug, output error message into the demo.html file
             result.push({
                 name : fileName,
-                content : annotation + content
+                content : (fileName.indexOf(".css") >= 0 ? annotation : "") + content
             })
         });
         return result;
