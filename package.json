@@ -1,7 +1,7 @@
 {
   "name": "use-iconfonts",
   "version": "1.9.6",
-  "description": "use-iconfonts",
+  "description": "A simple tool to generate font,output files include *.eot,*.svg,*.ttf,*.woff and *.woff2.",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
