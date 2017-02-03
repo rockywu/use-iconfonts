@@ -14,7 +14,7 @@
  * 2、在支持伪类:before,:after游览器下。建议使用，eg:<div class="<%= className %>  icon-eb01></div>
  * 3、低版本游览器模式（如：IE6,IE7,IE8...）。建议使用，eg:<div class="<%= className %> ">&#xeb01</div>
  */
-.<%= className %>  {
+.<%= className %> {
   font-family:"<%= fontName %>" !important;
   font-size:16px;
   font-style:normal;
@@ -25,7 +25,7 @@
 /**
  * 兼容css3选择器
  */
-[class*="<%= iconPrefix %>-"]:before{
+[class*="<%= iconPrefix %>-"] {
   font-family:"<%= fontName %>" !important;
   font-size:16px;
   font-style:normal;
