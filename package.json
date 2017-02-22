@@ -1,6 +1,6 @@
 {
   "name": "use-iconfonts",
-  "version": "1.9.9",
+  "version": "1.9.10",
   "description": "A simple tool to generate font,output files include *.eot,*.svg,*.ttf,*.woff and *.woff2.",
   "main": "src/index.js",
   "scripts": {
