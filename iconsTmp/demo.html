@@ -31,12 +31,12 @@
   url('<%= fontName %>.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
   url('<%= fontName %>.svg#iconfont') format('svg'); /* iOS 4.1- */
 }</pre>
-        第二步：定义使用iconfont的样式
+        第二步：定义使用iconfont的样式(use iconfont.css)
         <pre>
 /*
- * 1、在支持css3游览器。建议使用，eg: &lt;div class="<%= iconPrefix%>-eb01"&gt;&lt;/div&gt;
- * 2、在支持伪类:before,:after游览器下。建议使用，eg:&lt;div class="<%= className %>  <%= iconPrefix%>-eb01"&gt;&lt;/div&gt;
- * 3、低版本游览器模式（如：IE6,IE7,IE8...）。建议使用，eg:&lt;div class="<%= className %> "&gt;&amp;#xeb01&lt;/div&gt;
+ * 1、在支持css3游览器。建议使用，eg: &lt;i class="<%= iconPrefix%>-eb01"&gt;&lt;/i&gt;
+ * 2、在支持伪类:before,:after游览器下。建议使用，eg:&lt;i class="<%= className %>  <%= iconPrefix%>-eb01"&gt;&lt;/i&gt;
+ * 3、低版本游览器模式（如：IE6,IE7,IE8...）。建议使用，eg:&lt;i class="<%= className %> "&gt;&amp;#xeb01&lt;/i&gt;
  */
 /* 兼容所有版本写法 */
 .<%= className %> {
@@ -47,9 +47,8 @@
     -webkit-text-stroke-width: 0.2px;
     -moz-osx-font-smoothing: grayscale;
 }
-[class*="<%= iconPrefix%>-"] {
+[class*="<%= iconPrefix%>-"]:before {
     font-family:"<%= fontName %>" !important;
-    font-size:16px;
     font-style:normal;
     -webkit-font-smoothing: antialiased;
     -webkit-text-stroke-width: 0.2px;
@@ -57,7 +56,15 @@
 }
 </pre>
         第三步：挑选相应图标并获取字体编码，应用于页面
-        <pre>&lt;i class="<%= className %> "&gt;&amp;#xea01;&lt;/i&gt;</pre>
+        <pre>//支持css3
+&lt;i class="<%= iconPrefix%>-eb01"&gt;&lt;/i&gt;
+</pre>
+        <pre>//支持IE9+
+&lt;i class="<%= className %> <%= iconPrefix%>-eb01"&gt;&lt;/i&gt;
+</pre>
+        <pre>//支持IE6,7,8+
+&lt;i class="<%= className %>"&gt;&amp;#xeb01&lt;/i&gt;
+</pre>
         </div>
       </div>
   </body>

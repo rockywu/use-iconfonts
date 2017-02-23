@@ -16,12 +16,12 @@ can build font's file
 
 
 ### Install
-````
+```
 npm install --save use-iconfonts
-````
+```
 
 ### demo
-````
+```
 "use strict";
 /**
  * Created by rocky on 16/7/1.
@@ -71,7 +71,7 @@ fb.generate(fonts, {
         fs.writeFileSync(p + "aa1.zip", rs, "utf8");
     }
 });
-````
+```
 ### document
 
 #### Api
@@ -87,7 +87,7 @@ fb.generate(fonts, {
 * generate(fontConfings, options, callback)
     * fontConfigs  **array**
     
-        ````
+        ```
         [
             {
                 file : "path/file/aaa.svg", //可以输入file文件地址
@@ -98,7 +98,7 @@ fb.generate(fonts, {
                 unicode : "ea01",字体unicode码，
             },
         ]
-        ````
+        ```
     * options **object**
         * 可以参考[svgicons2svgfont.options](https://github.com/nfroidure/svgicons2svgfont#svgicons2svgfontoptions),中options配置介绍。
         * prependUnicode 自动生成unicode, default - false, true - auto unicode
@@ -109,7 +109,7 @@ fb.generate(fonts, {
     * callback **function**
         * example
         
-        ````
+        ```
         var callback = function (rs) {
             if(rs instanceof Array) {
                 rs.map(function(val) {
@@ -119,10 +119,10 @@ fb.generate(fonts, {
                 fs.writeFileSync(p + "aa1.zip", rs, "utf8");
             }
         }
-        ````
+        ```
         
 ### use font example
-````
+```
 /* 第一步：使用font-face声明字体 */
 @font-face {font-family: 'iconfonts';
   src: url('iconfonts.eot'); /* IE9*/
@@ -132,17 +132,36 @@ fb.generate(fonts, {
   url('iconfonts.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
   url('iconfonts.svg#iconfont') format('svg'); /* iOS 4.1- */
 }
-/* 第二步：定义使用iconfont的样式 */
+/* 第二步：定义使用iconfont的样式(use iconfont.css) */
 .iconfont{
   font-family:"iconfont" !important;
-  font-size:16px;font-style:normal;
+  font-size:16px;
+  font-style:normal;
   -webkit-font-smoothing: antialiased;
   -webkit-text-stroke-width: 0.2px;
   -moz-osx-font-smoothing: grayscale;
 }
-/* 第三步：挑选相应图标并获取字体编码，应用于页面 */
-/* <i class="iconfont">&#xea01;</i> */
-````
+
+[class*="icon-"]:before{
+  font-family:"iconfont" !important;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* 第三步：挑选相应图标并获取字体编码，应用于页面
+ * 1、在支持css3游览器。建议使用
+ *   eg: <div class="icon-eb01"></div>;
+ * 2、在支持伪类:before,:after游览器下。建议使用
+ *   eg:<div class="iconfont icon-eb01"></div>
+ * 3、低版本游览器模式（如：IE6,IE7,IE8...）。建议使用
+ *   eg:<div class="iconfont">&#xeb01</div>
+ */
+<i class="icon-ea01"></i> //support Css3
+<i class="iconfont icon-ea01"></i> //support IE9+
+<i class="iconfont">&#xea01;</i> //support IE6,7,8
+
+```
 
 ### author
 
