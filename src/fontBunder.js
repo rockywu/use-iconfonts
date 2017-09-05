@@ -88,7 +88,7 @@ class fontBunder{
         let def = {
             fontName: "iconfonts",
             normalize : true, //所有字体标准输出
-            fontHeight : 200, //字体高度200
+            fontHeight : 1000, //字体高度200
             centerHorizontally : true, //字体居中生成
             prependUnicode : false, //自动生成unicode
             startUnicode : 0xEA01, //自动开始编号
@@ -255,8 +255,8 @@ class fontBunder{
             //fixed bug 修复当画布大小不一致时导致的何必错误
             if(this.viewBoxSize) {
                 let viewBoxRE = /viewBox=[^ ]+\s+[^ "']+\s+([^ "']+)\s+([^ "']+)/;
-                let widthRE = /width=([^ <>]+)/;
-                let heightRe = /height=([^ <>]+)/;
+                let widthRE = /<svg [^>]+width=([0-9\."]+)[^>]+>/;
+                let heightRe = /<svg [^>]+height=([0-9\."]+)[^>]+>/;
                 let w;
                 let h;
                 //重新设置画布
@@ -265,8 +265,12 @@ class fontBunder{
                     h = RegExp.$2;
                 });
                 if(w && h) {
-                    content = content.replace(widthRE, 'width="' + w + '"');
-                    content = content.replace(heightRe, 'height="'+ h +'"');
+                    content = content.replace(widthRE, function(v) {
+                        return v.replace(/width="[0-9\.]+"/, "width=\""+w+"\"");
+                    });
+                    content = content.replace(heightRe, function(v) {
+                        return v.replace(/height="[0-9\.]+"/, "height=\""+w+"\"");
+                    });
                 }
             }
             iconStream.write(content, "utf8");
