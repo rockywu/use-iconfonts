@@ -264,12 +264,13 @@ class fontBunder{
                     w = RegExp.$1;
                     h = RegExp.$2;
                 });
+                //fixbug 调整错误
                 if(w && h) {
                     content = content.replace(widthRE, function(v) {
-                        return v.replace(/width="[0-9\.]+"/, "width=\""+w+"\"");
+                        return v.replace(/width="[0-9\.]+(px)?"/, "width=\""+w+"px\"");
                     });
                     content = content.replace(heightRe, function(v) {
-                        return v.replace(/height="[0-9\.]+"/, "height=\""+w+"\"");
+                        return v.replace(/height="[0-9\.]+(px)?"/, "height=\""+h+"px\"");
                     });
                 }
             }
