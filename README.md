@@ -2,6 +2,10 @@
 暂时只能运行在node环境下
 借鉴[nfroidure/svgiconfont](https://github.com/nfroidure/svgiconfont)字体打包工具,扩展了功能提供svg内容可以直接作为数据源编译成字体。
 
+## Please Use New Version "use-icons"
+
+New version of the library has migrated to the [Use-Icons](https://www.npmjs.com/package/use-icons)
+
 ### future
 之后版本 - 可以运行在游览器环境
 
